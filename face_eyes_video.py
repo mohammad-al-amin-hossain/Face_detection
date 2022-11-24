@@ -1,7 +1,4 @@
 import cv2 as cv
-import matplotlib.pyplot as plt
-import inline
-
 
 def face_detect(frame, face_detector, eyes_detector):
 
