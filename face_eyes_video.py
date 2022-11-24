@@ -8,6 +8,9 @@ def face_detect(frame, face_detector, eyes_detector):
 
     face_detected = face_detector.detectMultiScale(f_b, scaleFactor = 1.1, minNeighbors = 5)
     eyes_detected = eyes_detector.detectMultiScale(f_b, scaleFactor = 1.1, minNeighbors = 5)
+    
+    for (x, y, w, h) in eyes_detected:
+        cv.rectangle(f_S, (x, y), (x + w, y + h), (0, 0, 250), 2)
 
     n_o_f = len(face_detected)
     count = n_o_f
@@ -17,9 +20,6 @@ def face_detect(frame, face_detector, eyes_detector):
             cv.putText(img=f_S, text=f'face {count}', org=(x, y), fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=1,
                        color=(255, 0, 0), thickness=1)
             count -= 1
-
-    for (x, y, w, h) in eyes_detected:
-        cv.rectangle(f_S, (x, y), (x + w, y + h), (0, 0, 250), 2)
 
 
     cv.putText(img=f_S, text=f'Face Count = {n_o_f}', org=(50, 50), fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=2,
@@ -33,8 +33,8 @@ def read_video(src):
     eyes_detector = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_eye.xml")
     while True:
         isTrue, frame = capture.read()
-        frame_marked = face_detect(frame, face_detector, eyes_detector)
-        cv.imshow(winname='Face Detected', mat=frame_marked)
+        f = face_detect(frame, face_detector, eyes_detector)
+        cv.imshow('Face Detected', f)
         if cv.waitKey(10) & 0xFF == ord('q'):
             break
     capture.release()
