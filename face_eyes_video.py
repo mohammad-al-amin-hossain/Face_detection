@@ -40,5 +40,5 @@ def read_video(src):
     capture.release()
     cv.destroyAllWindows()
 
-#read_video(src="/Users/mohammadalaminhossain/Downloads/screen-capture.mp4", scale=scale)
+#read_video(src="/Users/......./screen-capture.mp4")
 read_video(src=0)
